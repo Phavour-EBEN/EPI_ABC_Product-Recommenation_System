@@ -81,7 +81,7 @@ You can interact with the recommendation API using `Postman` or curl.
 
 ### 5.The Recommendation Logic
 
-The logic in personalization.py and recommendation-api.py is designed to adapt to ABC Company’s evolving needs. The algorithm matches user preferences by incorporating features such as collaborative filtering, content-based filtering, and hybrid models.
+The logic in personalization.py and recommendation-api.py is designed to adapt to evolving needs. The algorithm matches user preferences by incorporating features such as collaborative filtering, content-based filtering, and hybrid models.
 
 ## API Details
 
