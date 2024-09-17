@@ -31,8 +31,8 @@ The system consists of two AI engines:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/recommendation-system.git
-cd recommendation-system
+git clone https://github.com/Phavour-EBEN/EPI_ABC_Product-Recommendation_System.git
+cd EPI_ABC_Product-Recommendation_System
 ```
 
 ### 2. Install Dependencies
