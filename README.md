@@ -22,8 +22,7 @@ The system consists of two AI engines:
 ├── personalization.py           # Personalization engine logic
 ├── recommendation-api.py        # API for recommendation engine
 ├── README.md                    # Project documentation
-├── requirements.txt             # Python dependencies
-└── tests/                       # Test cases for the system
+└── requirements.txt             # Python dependencies
 ```
 
 ## How to Use
