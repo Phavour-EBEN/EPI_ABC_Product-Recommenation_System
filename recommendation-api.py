@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-# from collections import defaultdict
 from personalization import merged_df, user_user_cf, create_user_item_matrix
 from personalization import get_user_interests, content_based_recommendation
 from personalization import hybrid_recommendation
@@ -10,7 +9,6 @@ def recommend():
     user_item_matrix = create_user_item_matrix(merged_df)
     data = request.get_json()
     target_user = data.get('user_id')
-    # target_post = data.get('post_id')
     
 
     if target_user is None:

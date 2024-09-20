@@ -28,14 +28,14 @@ post_performance_df.isna().sum()
 
 comments_df['Comment']
 
-# Identify and print non-numeric user_id values
+
 non_numeric_ids = comments_df[~comments_df['id'].str.isnumeric()]
 print("Non-numeric user_ids:\n", non_numeric_ids)
 
-# Remove non-numeric user_id values
+
 comments_df = comments_df[comments_df['id'].str.isnumeric()]
 
-# Convert to integers
+
 comments_df['id'] = comments_df['id'].astype(int)
 
 merged_df = pd.merge(comments_df, post_performance_df, on='id', how='inner')
@@ -45,7 +45,7 @@ merged_df.info()
 from sklearn.metrics.pairwise import cosine_similarity
 from collections import defaultdict
 
-# One-hot encoding for likes
+
 merged_df['Reaction'] = merged_df['liked'] = 1
 merged_df
 
