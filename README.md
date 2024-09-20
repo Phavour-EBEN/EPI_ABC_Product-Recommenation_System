@@ -1,6 +1,6 @@
 # Product Recommendation System
 
-ABC Company Limited operates an online shop where customers browse and purchase products. The company has recognized the potential of AI technologies to enhance their business by personalizing product recommendations for their users. This project implements a recommendation system that provides personalized product suggestions based on user preferences.
+This project implements a recommendation system for ABC Company Limited's online shop. The system aims to understand customer preferences and personalize product recommendations for each user. It consists of two main components:
 
 ## Project Overview
 
@@ -22,8 +22,7 @@ The system consists of two AI engines:
 ├── personalization.py           # Personalization engine logic
 ├── recommendation-api.py        # API for recommendation engine
 ├── README.md                    # Project documentation
-├── requirements.txt             # Python dependencies
-└── tests/                       # Test cases for the system
+└── requirements.txt             # Python dependencies
 ```
 
 ## How to Use
@@ -31,8 +30,8 @@ The system consists of two AI engines:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/recommendation-system.git
-cd recommendation-system
+git clone https://github.com/Phavour-EBEN/EPI_ABC_Product-Recommendation_System.git
+cd EPI_ABC_Product-Recommendation_System
 ```
 
 ### 2. Install Dependencies
@@ -55,7 +54,7 @@ This will launch the API locally at `http://127.0.0.1:5000/`.
 
 ### 4. Testing with JSON Input
 
-You can interact with the recommendation API using `curl` or Postman.
+You can interact with the recommendation API using `Postman` or curl.
 
 #### **Endpoint:**
 - **URL:** `http://127.0.0.1:5000/recommend`
@@ -65,26 +64,24 @@ You can interact with the recommendation API using `curl` or Postman.
 #### **Request Body Example**:
 ```json
 {
-  "userid": "user123"
+  "user_id": "19"
 }
 ```
 
 #### **Response Example**:
 ```json
 {
-  "userid": "user123",
-  "recommended_products": [
-    "Product A",
-    "Product B",
-    "Product C",
-    "Product D"
+  "recommendations": [
+    "20",
+    "3",
+    "19"
   ]
 }
 ```
 
-### 5. Customizing the Recommendation Logic
+### 5.The Recommendation Logic
 
-You can modify the logic in `personalization.py` and `recommendation-api.py` to suit ABC Company’s evolving needs. If needed, adjust the algorithm to better match user preferences by adding or updating features like collaborative filtering, content-based filtering, or hybrid models.
+The logic in personalization.py and recommendation-api.py is designed to adapt to evolving needs. The algorithm matches user preferences by incorporating features such as collaborative filtering, content-based filtering, and hybrid models.
 
 ## API Details
 
@@ -100,34 +97,33 @@ The Recommendation API is designed to return a set of recommended products based
 
 ```python
 # Inside recommendation-api.py
-def recommend_products(userid):
-    # Logic to recommend products for the given user ID
-    recommended_products = ["Product A", "Product B", "Product C", "Product D"]
-    return recommended_products
-```
+from flask import Flask, request, jsonify
+# from collections import defaultdict
+from personalization import merged_df, user_user_cf, create_user_item_matrix
+from personalization import get_user_interests, content_based_recommendation
+from personalization import hybrid_recommendation
 
-## Testing
+app = Flask(__name__)
+@app.route('/recommend', methods=['POST'])
+def recommend():
+    user_item_matrix = create_user_item_matrix(merged_df)
+    data = request.get_json()
+    target_user = data.get('user_id')
+    
+    if target_user is None:
+        return jsonify({"error": "Both user_id is required"}), 400
 
-You can write test cases in the `tests/` directory to ensure the system works as expected. Use tools like `pytest` to automate testing.
+    try:
+        recommendations = hybrid_recommendation(merged_df,user_item_matrix, target_user)
+        return jsonify({"recommendations": recommendations})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
-To run the tests:
-
-```bash
-pytest tests/
+if __name__ == '__main__':
+    app.run(debug=True)
 ```
 
 ## Future Enhancements
 
 - Improve recommendation algorithms by incorporating user behavior tracking, purchase history, and real-time data.
-- Implement collaborative filtering to suggest products based on similar users.
 - Add A/B testing to evaluate different recommendation strategies.
-
-## Contributing
-
-Feel free to contribute by opening issues or submitting pull requests to improve the recommendation system.
-
-## License
-
-This project is licensed under the MIT License.
-
----
